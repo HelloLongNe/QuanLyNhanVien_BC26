@@ -117,6 +117,18 @@ document.querySelector('#btnCapNhap').onclick = function(){
     nhanVien.luongCoBan = document.querySelector('#luongCoBan').value;
     nhanVien.soGioLamTrongThang = document.querySelector('#soGioLamTrongThang').value;
 
+    var valid = true;
+    valid &= kiemTra.kiemTraRong(nhanVien.maNhanVien, '#spanMaNV') & kiemTra.kiemTraRong(nhanVien.tenNhanVien, '#spanTenNV') & kiemTra.kiemTraRong(nhanVien.luongCoBan, '#spanLuongCoBan') & kiemTra.kiemTraRong(nhanVien.soGioLamTrongThang, '#spanSoGioLamTrongThang') & kiemTra.kiemTraRong(nhanVien.heSoChucVu, '#spanHeSoChucVu');
+
+    valid &= kiemTra.kiemTraTatCaSo(nhanVien.maNhanVien, '#error_kiemTraSo_maNV') & kiemTra.kiemTraTatCaSo(nhanVien.luongCoBan, '#error_kiemTraSo_luongCoBan') & kiemTra.kiemTraTatCaSo(nhanVien.heSoChucVu, '#error_kiemTraSo_heSoChucVu') & kiemTra.kiemTraTatCaSo(nhanVien.soGioLamTrongThang, '#error_kiemTraSo_soGioLamTrongThang')
+
+    valid &= kiemTra.kiemTraDoDai(nhanVien.maNhanVien, '#err_kiemTraSoLuong_maNV',4,6 )
+
+    valid &= kiemTra.kiemTraTatCaKyTu(nhanVien.tenNhanVien, '#err_kiemTraKyTu_tenNV')
+
+    valid &= kiemTra.kiemTraGiaTri(nhanVien.luongCoBan, '#err_kiemTraGiaTri_luongCoBan',1000000,20000000) & kiemTra.kiemTraGiaTri(nhanVien.heSoChucVu, '#err_kiemTraGiaTri_heSoChucVu',1,3) & kiemTra.kiemTraGiaTri(nhanVien.soGioLamTrongThang, '#err_kiemTraGiaTri_soGioLamTrongThang',50,150)
+
+
     var promise = axios({
         url:'http://svcy.myclass.vn/api/QuanLyNhanVienApi/CapNhatThongTinNhanVien?maNhanVien='+ nhanVien.maNhanVien,
         method:'PUT',
